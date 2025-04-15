@@ -230,7 +230,20 @@ class EGNN(nn.Module):
         use_nearest = num_nearest > 0 or only_sparse_neighbors
 
         rel_coors = rearrange(coors, 'b i d -> b i () d') - rearrange(coors, 'b j d -> b () j d')
-        rel_dist = (rel_coors ** 2).sum(dim = -1, keepdim = True)
+
+        # Square the tensor in-place
+        rel_coors.pow_(2)
+    
+        # Sum along the specified dimension
+        rel_dist = rel_coors.sum(dim=-1, keepdim=True)
+
+        print("Calculated")
+
+        rel_coors = rearrange(coors, 'b i d -> b i () d') - rearrange(coors, 'b j d -> b () j d')
+
+        print("Calculated")
+
+        #rel_dist = (rel_coors ** 2).sum(dim = -1, keepdim = True)
 
         i = j = n
 
