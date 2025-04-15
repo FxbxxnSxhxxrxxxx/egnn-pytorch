@@ -233,6 +233,8 @@ class EGNN(nn.Module):
 
         # Square the tensor in-place
         rel_coors.pow_(2)
+
+         print("Calculated")
     
         # Sum along the specified dimension
         rel_dist = rel_coors.sum(dim=-1, keepdim=True)
