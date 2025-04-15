@@ -239,6 +239,8 @@ class EGNN(nn.Module):
         # Sum along the specified dimension
         rel_dist = rel_coors.sum(dim=-1, keepdim=True)
 
+        del rel_coors
+
         print("Calculated")
 
         rel_coors = rearrange(coors, 'b i d -> b i () d') - rearrange(coors, 'b j d -> b () j d')
